@@ -1,0 +1,272 @@
+@import "tailwindcss";
+@import "./lab/ui/styles.css";
+
+@theme {
+  --color-bg: #05070a;
+  --color-surface: #12161c;
+  --color-surface-2: #1a2028;
+  --color-fg: #e8eef5;
+  --color-muted: #8b96a8;
+  --color-accent: #7ec8e3;
+  --color-accent-fg: #061018;
+  --color-border: color-mix(in oklab, #e8eef5 12%, transparent);
+  --color-danger: #c4786a;
+  --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body,
+  #app {
+    height: 100%;
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    overflow: hidden;
+  }
+}
+
+/* Lab canvas fills the preview. */
+#viewport {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.lab-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, #161c24 0%, #05070a 62%);
+}
+
+.lab-gate__card {
+  width: min(440px, 100%);
+  padding: 28px 24px 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 28px;
+  background: color-mix(in oklab, var(--color-surface) 88%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.lab-gate__kicker {
+  margin: 0 0 8px;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.lab-gate__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.lab-gate__lead {
+  margin: 14px 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.lab-gate__keys {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 20px 0 22px;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+.lab-gate__keys b {
+  color: var(--color-fg);
+  font-weight: 600;
+}
+
+.lab-gate__enter {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-fg);
+  color: var(--color-accent-fg);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.lab-gate__enter:hover {
+  filter: brightness(1.06);
+}
+
+.lab-gate__enter:active {
+  transform: scale(0.98);
+}
+
+.lab-gate__hint {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.studio-sheet {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  width: min(360px, calc(100vw - 32px));
+  max-height: calc(100vh - 140px);
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  background: color-mix(in oklab, var(--color-surface) 92%, transparent);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  color: var(--color-fg);
+}
+
+.studio-sheet h2 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.studio-sheet p {
+  margin: 8px 0 12px;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.studio-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.studio-tabs button {
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.studio-tabs button.is-on {
+  background: var(--color-fg);
+  color: var(--color-accent-fg);
+  border-color: transparent;
+}
+
+.studio-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.8rem;
+}
+
+.studio-row b {
+  font-weight: 600;
+}
+
+.studio-row span {
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.studio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.studio-actions button {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-fg);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.studio-actions button.primary {
+  background: var(--color-fg);
+  color: var(--color-accent-fg);
+  border-color: transparent;
+}
+
+.studio-toggle {
+  position: fixed;
+  top: 72px;
+  left: 16px;
+  z-index: 45;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklab, var(--color-surface) 86%, transparent);
+  color: var(--color-fg);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .studio-toggle {
+    top: 12px;
+    bottom: auto;
+    left: auto;
+    right: 12px;
+  }
+  .studio-sheet {
+    top: auto;
+    bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+    max-height: 42vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-gate__enter,
+  .ability-card {
+    transition: none;
+  }
+}
