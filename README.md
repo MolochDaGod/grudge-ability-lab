@@ -1,17 +1,30 @@
 # Grudge Ability Lab
 
-Three.js skillshot lab. Source zip stays under 100 MB — `node_modules` is not included.
+Three.js skillshot lab. Source stays under 100 MB — binaries live in **Git LFS**.
 
 ```bash
+git lfs install
+git clone <this-repo>
 npm install
 npm run dev
 ```
 
-Dev server: `0.0.0.0:8080`.
+If you skip `git lfs install`, HDR / GLB / FBX / textures checkout as 132-byte pointer files and the stage looks black.
+
+## Git LFS
+
+Tracked patterns (see `.gitattributes`):
+
+- `*.hdr` — environment
+- `*.glb` / `*.fbx` — meshes
+- `*.png` / `*.jpg` / `*.jpeg` / `*.webp` — textures and HUD art
+- `*.zip` — runtime pack
+
+Git itself stores a pointer (~130 bytes). The real files download from LFS on clone. GitHub’s 100 MB blob cap does not apply to those objects.
 
 ## Upload bundle
 
-This folder (without `node_modules`) is the upload. On the other machine:
+Tab → **Lab zip** is the whole project without `node_modules` (~19 MB). On the other machine:
 
 1. Unzip
 2. `npm install`
