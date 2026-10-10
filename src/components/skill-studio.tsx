@@ -107,7 +107,10 @@ export function SkillStudio({ open, onClose }: { open: boolean; onClose: () => v
         ))}
 
       {tab === "Export" && (
-        <p>Writes Casting production-override JSON. Same contract as weapon-skills host.</p>
+        <p>
+          Export writes combat numbers (range, cooldown, statuses). The look is a Tab JSON pack.
+          Another game calls createSkillRuntime, then apply, paint, cast, and step.
+        </p>
       )}
 
       <div className="studio-actions">

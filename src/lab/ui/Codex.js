@@ -99,7 +99,7 @@ export class Codex {
             Import
             <input data-codex-import type="file" accept="application/json,.json,.js,text/javascript" hidden />
           </label>
-          <div class="codex__hint" data-codex-hint>JSON is knobs. Runtime zip is shaders. Lab zip is the whole project under 100 MB (no node_modules).</div>
+          <div class="codex__hint" data-codex-hint>JSON is knobs. Runtime zip is the VFX. In another game: createSkillRuntime({ scene, camera }) then cast / apply / step. Repo is on the README.</div>
         </footer>
       </div>
     `;

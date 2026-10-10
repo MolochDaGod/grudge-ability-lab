@@ -100,7 +100,7 @@ export function AbilityLab() {
             <h1 className="lab-gate__title">Ability Lab</h1>
             <p className="lab-gate__lead">
               Arm a skill, aim, click. ▾ on Fire Bend and Water Bend opens
-              colour and texture. Tab opens saves.
+              colour and texture. Tab downloads the pack and the runtime API.
             </p>
             <div className="lab-gate__keys">
               <div>

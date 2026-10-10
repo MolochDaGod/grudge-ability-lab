@@ -206,6 +206,7 @@ export function exportAllSkills() {
     version: '1.3.0',
     upstream: 'https://github.com/MolochDaGod/LinearAbilityExtThreeJS',
     product: 'https://github.com/MolochDaGod/CastingAbilitiesThreeJS',
+    lab: 'https://github.com/MolochDaGod/grudge-ability-lab',
     elements: ELEMENTS,
     skills: ELEMENTS.map(exportSkillPrefab)
   };

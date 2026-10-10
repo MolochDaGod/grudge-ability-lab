@@ -201,6 +201,16 @@ export function downloadRuntimeGuide() {
   return true;
 }
 
+export function downloadRuntimeZip() {
+  const link = document.createElement('a');
+  link.href = '/skills/grudge-ability-runtime.zip';
+  link.download = 'grudge-ability-runtime.zip';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  return true;
+}
+
 export function downloadLabZip() {
   const link = document.createElement('a');
   link.href = '/skills/grudge-ability-lab.zip';

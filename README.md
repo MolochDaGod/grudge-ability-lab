@@ -1,15 +1,46 @@
 # Grudge Ability Lab
 
-Three.js skillshot lab. Source stays under 100 MB — binaries live in **Git LFS**.
+Three.js skillshot lab. Tune a cast here, then drop `createSkillRuntime` into another game.
+
+https://github.com/MolochDaGod/grudge-ability-lab
 
 ```bash
 git lfs install
-git clone <this-repo>
+git clone https://github.com/MolochDaGod/grudge-ability-lab.git
 npm install
 npm run dev
 ```
 
-If you skip `git lfs install`, HDR / GLB / FBX / textures checkout as 132-byte pointer files and the stage looks black.
+If you skip `git lfs install`, HDR / GLB / FBX / textures checkout as pointer files and the stage looks black.
+
+## Use the skills in another game
+
+```js
+import { createSkillRuntime } from './src/lab/api/skillRuntime.js';
+
+const skills = createSkillRuntime({ scene, camera, envMap });
+skills.apply(jsonPack); // knobs from Tab → Download last
+skills.paint('fireBend', { palette: 'frost', texture: 'plasma' });
+skills.cast({ id: 'staff_fire_bolt', origin, direction });
+
+function tick(dt) {
+  skills.step(dt, { width, height });
+  camera.position.add(skills.shakeOffset);
+  renderer.render(scene, camera);
+  camera.position.sub(skills.shakeOffset);
+}
+```
+
+`onImpact` gives you `{ labId, statuses, position }`. Damage stays in your game.
+
+| Call | Job |
+|---|---|
+| `cast` | lab id or catalog id, floor origin, facing. Cooldown, min range, and a zero aim come back as `reason`. |
+| `apply` | `grudge.skill/v1` look pack, or a Studio combat override (range / cooldown) |
+| `paint` | the same colour and texture chips as ▾ |
+| `step` | uniforms, travel, particles, decals, lights, shake, flash |
+
+Full notes: `public/skills/RUNTIME.md`. In the lab, Tab → README / Runtime zip.
 
 ## Git LFS
 
@@ -20,25 +51,8 @@ Tracked patterns (see `.gitattributes`):
 - `*.png` / `*.jpg` / `*.jpeg` / `*.webp` — textures and HUD art
 - `*.zip` — runtime pack
 
-Git itself stores a pointer (~130 bytes). The real files download from LFS on clone. GitHub’s 100 MB blob cap does not apply to those objects.
-
 ## Upload bundle
 
-Tab → **Lab zip** is the whole project without `node_modules` (~19 MB). On the other machine:
-
-1. Unzip
-2. `npm install`
-3. `npm run dev`
-
-## Skills for another game
-
-In the lab, **Tab → Saves**:
-
-- **Download last** — JSON / JS knobs for the skill you just cast
-- **README** — how the effects are produced
-- **Runtime zip** — Ability classes, shaders, particles (~400 KB)
-- **Lab zip** — this whole project, no `node_modules`
+Tab → **Lab zip** is the whole project without `node_modules`. On the other machine: unzip, `npm install`, `npm run dev`.
 
 JSON is settings. The runtime zip is the VFX. GLB is a container only.
-
-See `public/skills/RUNTIME.md`.
