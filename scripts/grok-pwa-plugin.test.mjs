@@ -6,9 +6,9 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import {
   appNameFromHost,
-  createHeadInjector,
+  createHeadInjector as createHeadInjectorWithCwd,
   grokXCreatorHeadTags,
-  injectGrokPwaHead,
+  injectGrokPwaHead as injectGrokPwaHeadWithCwd,
   isDocumentPath,
   isInstallQuery,
   publicAppHost,
@@ -20,6 +20,19 @@ import {
 import { renderInstallPage } from "./grok-pwa-plugin.mjs";
 
 const TEMPLATE_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// This repo has a real site.json and og.jpg. Tests that do not pass their own
+// cwd must not inherit that card, or every title/placeholder assertion follows
+// the lab instead of the fixture.
+const BLANK_CWD = mkdtempSync(join(tmpdir(), "grok-pwa-blank-"));
+
+function injectGrokPwaHead(html, ctx = {}) {
+  return injectGrokPwaHeadWithCwd(html, { cwd: BLANK_CWD, ...ctx });
+}
+
+function createHeadInjector(ctx = {}) {
+  return createHeadInjectorWithCwd({ cwd: BLANK_CWD, ...ctx });
+}
 
 test("injects before </head>", () => {
   const out = injectGrokPwaHead("<html><head><title>x</title></head><body></body></html>");

@@ -1,5 +1,7 @@
 # Grudge Ability Lab
 
+[![Test](https://github.com/MolochDaGod/grudge-ability-lab/actions/workflows/test.yml/badge.svg)](https://github.com/MolochDaGod/grudge-ability-lab/actions/workflows/test.yml)
+
 Three.js skillshot lab. Tune a cast here, then drop `createSkillRuntime` into another game.
 
 https://github.com/MolochDaGod/grudge-ability-lab
